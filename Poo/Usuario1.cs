@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace Poo
 {
-     class Cliente : Base
+    class Usuario1 : IUsuario
     {
-       
+        public new void Ss()
+        {
+            Console.WriteLine("hhhhshhsh");
+        }
     }
 }

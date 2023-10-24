@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Poo
 {
-    public class Base : IPessoas
+    public class Base
     {
         public string Nome { get ; set ; }
         public string Cpf { get ; set ; }

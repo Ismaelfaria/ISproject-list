@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Poo
 {
-    public class Usuario: Base
+     class IUsuario
     {
-  
+        public void Ss() { }
     }
 
 
