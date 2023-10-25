@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Poo
 {
-    internal class Prog
-    {
-        static void Main(string[] args)
-        {
-            
-        }
-    }
+    class Prog
+    {        
+
+        
+
+    }   
 }
+
