@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace POO
 {
-    internal class Program
+    enum EnumOptions
     {
-        static void Main(string[] args)
-        {
-            var v = new ControllerLogin(5, "Davi", "12345");
-        }
+        CREATE = 1, READ = 2, REMOVE = 3
     }
 }
