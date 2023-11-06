@@ -10,7 +10,8 @@ namespace POO
     {
         static void Main(string[] args)
         {
-            var v = new ControllerLogin(5, "Davi", "12345");
+            var v = new ControllerLogin(3,"Dai", "12345");
+            
         }
     }
 }

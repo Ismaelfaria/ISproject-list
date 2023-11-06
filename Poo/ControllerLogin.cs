@@ -9,6 +9,10 @@ namespace POO
 {
     internal class ControllerLogin
     {
+
+        /// <summary>
+        /// Add information to the database.
+        /// </summary>
         public ControllerLogin(int Id, string Name, string Pass)
         {
             List<UserModel> addUsers = ControllerLogin.AddUsers(UserDatabase._users, Id, Name, Pass);
@@ -19,12 +23,12 @@ namespace POO
             }
             else
             {
-                Console.WriteLine("ERRO: Usuario não Adicionado, Usuario já existe");
+                Console.WriteLine("ERRO: Usuario não Adicionado, Usuario já existe ou Posição já ocupada");
             }
         }
-        public static List<UserModel> AddUsers(List<UserModel> dados, int id, string user, string pass)
+        private static List<UserModel> AddUsers(List<UserModel> dados, int id, string user, string pass)
         {
-            bool usuarioExistente = dados.Any(x => x.UserName == user);
+            bool usuarioExistente = dados.Any(x => x.UserName == user || x.Id == id);
 
 
             if (usuarioExistente != true)
@@ -39,14 +43,7 @@ namespace POO
                 var add = dados
                     .Concat(new List<UserModel> { novoUsuario })
                     .ToList();
-
-                Console.WriteLine("Usuario");
-
-                foreach (var item in add)
-                {
-                    Console.WriteLine($"-- Id: {item.Id}  |  Username: {item.UserName}");
-                }
-
+                    
                 return add;
             }
             else
@@ -57,29 +54,60 @@ namespace POO
 
 
 
-        public ControllerLogin(string name)
+        /// <summary>
+        /// Remove information to the database.
+        /// </summary>
+        public ControllerLogin(string Name, string Pass)
         {
+            List<UserModel> removeUsers = ControllerLogin.RemoveUsers(UserDatabase._users, Name, Pass);
 
-            List<UserModel> usersConsult = ControllerLogin.ConsultUsers(UserDatabase._users, name);
+        }
+        private static List<UserModel> RemoveUsers(List<UserModel> dados, string user, string pass)
+        {
+            bool usuarioExistente = dados.Any(x => x.UserName == user);
 
-            if (usersConsult.Count == 0)
+
+            if (usuarioExistente == true)
             {
-                Console.WriteLine("Usuario não encontrado");
+                UserModel novoUsuario = new UserModel
+                {
+                    UserName = user,
+                    UserPassword = pass
+                };
+
+                var remove = dados
+                    .RemoveAll(x => x.UserName == user);
+
+                Console.WriteLine("SUCESSO: Usuario Removido");
+
+                return null;
+
             }
             else
             {
-                foreach (var item in usersConsult)
-                {
-                    Console.WriteLine($"Usuario encontrado\n" + "Cadastro\n" + $"Id: {item.Id}  |  Username: {item.UserName}");
-                }
+                Console.WriteLine("ERRO: Usuario não removido, Usuario não existe");
+                return null;
             }
         }
-        public static List<UserModel> ConsultUsers(List<UserModel> dados, string user)
+
+
+        /// <summary>
+        /// Query the database.
+        /// </summary>
+        public ControllerLogin()
+        {
+            List<UserModel> consultUsers = ControllerLogin.ConsultUsers(UserDatabase._users);
+
+        }
+        private static List<UserModel> ConsultUsers(List<UserModel> dados)
         {
             List<UserModel> verific = dados
-                .Where(x => x.UserName == user)
                 .ToList();
 
+            foreach (var item in verific)
+            {
+                Console.WriteLine($"Id: {item.Id} | Nome: {item.UserName}");
+            }
 
             return verific;
         }
