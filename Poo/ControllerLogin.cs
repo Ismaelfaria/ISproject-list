@@ -28,23 +28,19 @@ namespace POO
         }
         private static List<UserModel> AddUsers(List<UserModel> dados, int id, string user, string pass)
         {
-            bool usuarioExistente = dados.Any(x => x.UserName == user || x.Id == id);
-
+            var usuarioExistente = dados.Any(x => x.UserName == user || x.Id == id);
 
             if (usuarioExistente != true)
             {
                 UserModel novoUsuario = new UserModel
-                {
-                    Id = id,
-                    UserName = user,
-                    UserPassword = pass
-                };
+                (
+                   default,
+                   user,
+                   pass
+                );
+                dados.Add(novoUsuario);
 
-                var add = dados
-                    .Concat(new List<UserModel> { novoUsuario })
-                    .ToList();
-                    
-                return add;
+                return dados;
             }
             else
             {
@@ -61,31 +57,36 @@ namespace POO
         {
             List<UserModel> removeUsers = ControllerLogin.RemoveUsers(UserDatabase._users, Name, Pass);
 
-        }
-        private static List<UserModel> RemoveUsers(List<UserModel> dados, string user, string pass)
-        {
-            bool usuarioExistente = dados.Any(x => x.UserName == user);
-
-
-            if (usuarioExistente == true)
+            if (removeUsers != null)
             {
-                UserModel novoUsuario = new UserModel
-                {
-                    UserName = user,
-                    UserPassword = pass
-                };
-
-                var remove = dados
-                    .RemoveAll(x => x.UserName == user);
-
-                Console.WriteLine("SUCESSO: Usuario Removido");
-
-                return null;
-
+                Console.WriteLine("SUCESSO: Usuario Removido\n");
             }
             else
             {
                 Console.WriteLine("ERRO: Usuario não removido, Usuario não existe");
+            }
+
+        }
+        private static List<UserModel> RemoveUsers(List<UserModel> dados, string user, string pass)
+        {
+            var usuarioExistente = dados.Any(x => x.UserName == user);
+
+            if (usuarioExistente == true)
+            {
+                UserModel removerUsuario = new UserModel
+                (
+                   default,
+                   user,
+                   pass
+                );
+
+                var removeUser = dados
+                    .RemoveAll(x => x.UserName == user && x.UserPassword == pass);
+
+                return dados;
+            }
+            else
+            {
                 return null;
             }
         }
@@ -98,20 +99,23 @@ namespace POO
         {
             List<UserModel> consultUsers = ControllerLogin.ConsultUsers(UserDatabase._users);
 
+            if(consultUsers == null)
+            {
+                Console.WriteLine("Erro: não existe usuarios");
+            }
         }
         private static List<UserModel> ConsultUsers(List<UserModel> dados)
         {
             List<UserModel> verific = dados
+                .OrderBy(x => x.Id)
                 .ToList();
 
             foreach (var item in verific)
-            {
+            {  
                 Console.WriteLine($"Id: {item.Id} | Nome: {item.UserName}");
             }
-
             return verific;
         }
     }
-
 }
 

@@ -10,8 +10,9 @@ namespace POO
     {
         static void Main(string[] args)
         {
-            var v = new ControllerLogin(3,"Dai", "12345");
-            
+            MenuUser.start();
+
+
         }
     }
 }

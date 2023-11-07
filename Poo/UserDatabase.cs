@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace POO
 {
-    internal class UserDatabase : UserModel
+    internal class UserDatabase
     {
         public static List<UserModel> _users = new()
         {
-            new UserModel{Id = 1, UserName = "Alex", UserPassword = "12345"},
-            new UserModel{Id = 2, UserName = "Davi", UserPassword = "12345"},
-            new UserModel{Id = 3, UserName = "Daniel", UserPassword = "12345"},
-            new UserModel{Id = 4, UserName = "Roberto", UserPassword = "12345"}
+            new UserModel( 1,  "Alex",  "12345"),
+            new UserModel( 2,  "Davi", "12345" ),
+            new UserModel(3, "Daniel", "12345"),
+            new UserModel(4, "Roberto", "12345")
         };
     }
 }

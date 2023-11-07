@@ -8,6 +8,6 @@ namespace POO
 {
     enum EnumOptions
     {
-        CREATE = 1, READ = 2, REMOVE = 3
+        CREATE = 1, REMOVE = 2, READ = 3
     }
 }
